@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+ver=1.35
+cd tar-$ver
+
+./configure --prefix=/usr
+
+make
+make DESTDIR="$1" install
+
+# Instalar docs
+make DESTDIR="$1" -C doc install-html docdir=/usr/share/doc/tar-$ver
