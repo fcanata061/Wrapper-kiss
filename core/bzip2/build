@@ -1,0 +1,20 @@
+#!/bin/sh -e
+
+ver=1.0.8
+cd bzip2-$ver
+
+make -f Makefile-libbz2_so
+make clean
+make
+
+make PREFIX=/usr DESTDIR="$1" install
+
+# Instalar biblioteca compartilhada
+cp -av libbz2.so.* "$1/usr/lib"
+ln -svf libbz2.so.1.0 "$1/usr/lib/libbz2.so"
+
+# Remover estática
+rm -f "$1/usr/lib/libbz2.a"
+
+# Instalar docs
+install -v -m644 bzip2.txt "$1/usr/share/doc/bzip2-$ver"
