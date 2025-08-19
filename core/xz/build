@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+ver=5.6.2
+cd xz-$ver
+
+./configure --prefix=/usr \
+            --disable-static \
+            --docdir=/usr/share/doc/xz-$ver
+
+make
+make DESTDIR="$1" install
