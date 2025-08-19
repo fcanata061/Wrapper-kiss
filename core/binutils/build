@@ -1,0 +1,17 @@
+#!/bin/sh -e
+
+version=2.43.1
+mkdir -v build
+cd build
+
+../binutils-${version}/configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --enable-gold \
+    --enable-ld=default \
+    --enable-64-bit-bfd \
+    --disable-multilib \
+    --with-system-zlib
+
+make tooldir=/usr
+make DESTDIR="$1" tooldir=/usr install
