@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+ver=1.13
+cd gzip-$ver
+
+./configure --prefix=/usr
+
+make
+make DESTDIR="$1" install
+
+# Instalar docs
+install -v -m644 README "$1/usr/share/doc/gzip-$ver/"
